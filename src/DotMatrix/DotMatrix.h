@@ -21,6 +21,7 @@ public:
   
   void printScroll(const char *pText, textEffect effect = left);
   void printImage(const byte images[8]);
+  void printEmoji(int num);
 
 private:
   uint8_t _dataPin;

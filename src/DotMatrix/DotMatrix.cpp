@@ -3,6 +3,30 @@
 
 #include "./DotMatrix.h"
 
+#define EMOJI_COUNT 2
+const byte IMAGES[EMOJI_COUNT][8] = {
+  {
+    B00100100,
+    B00100100,
+    B01000010,
+    B01111110,
+    B01000010,
+    B01000010,
+    B01000010,
+    B00000000
+  },
+  {
+    B11111111,
+    B00000000,
+    B00000000,
+    B00001100,
+    B00001100,
+    B00000000,
+    B00000000,
+    B11111111
+  }
+};
+
 
 DotMatrix::DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t numDevices = 1)
 : MD_Parola(MD_MAX72XX::GENERIC_HW, dataPin, clkPin, csPin, numDevices)
@@ -74,6 +98,15 @@ void DotMatrix::printImage(const byte images[8])
       digitalWrite(_csPin, HIGH);
     }
   }
+}
+
+void DotMatrix::printEmoji(int num)
+{
+  if ( num > EMOJI_COUNT || num <= 0 ) 
+    return;
+  
+  printImage( IMAGES[num-1] );
+
 }
 
 #endif
