@@ -19,9 +19,10 @@
 #ifndef HUEMONELAB_KIT_H
 #define HUEMONELAB_KIT_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <SoftwareSerial.h>
 #include <Servo.h>
+#include "./DotMatrix/DotMatrix.h"
 
 #define DEBUG_PRINTER Serial
 #define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
