@@ -71,3 +71,4 @@ Ankh.NoLoad
 
 # visual studio database projects
 *.dbmdl
+.vscode/

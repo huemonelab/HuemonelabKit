@@ -4,7 +4,6 @@
 DotMatrix dot(12, 11, 10);
 
 void setup() {
-  Serial.begin(9600);
 }
 
 void loop() {
