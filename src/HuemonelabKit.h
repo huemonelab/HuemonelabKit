@@ -287,4 +287,13 @@ private:
   uint8_t _pin;
 };
 
+class ShockSensor
+{
+public:
+  ShockSensor(uint8_t pin);
+  int read();
+private:
+  uint8_t _pin;
+};
+
 #endif
