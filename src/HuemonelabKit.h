@@ -287,11 +287,27 @@ private:
   uint8_t _pin;
 };
 
+/**
+ * Updated at 2023.5.11
+*/
 class ShockSensor
 {
 public:
   ShockSensor(uint8_t pin);
   int read();
+private:
+  uint8_t _pin;
+};
+
+/**
+ * Updated at 2023.5.11
+*/
+class IRSensor
+{
+public:
+  IRSensor(uint8_t pin);
+  int read();
+
 private:
   uint8_t _pin;
 };
