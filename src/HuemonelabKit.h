@@ -17,6 +17,7 @@
 #include <SoftwareSerial.h>
 #include <Servo.h>
 #include "./DotMatrix/DotMatrix.h"
+#include "./Keypad/Keypad.h"
 
 #define DEBUG_PRINTER Serial
 #define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
