@@ -19,6 +19,7 @@
 #include "./DotMatrix/DotMatrix.h"
 #include "./Keypad/Keypad.h"
 #include "./WireTempSensor/WireTempSensor.h"
+#include "./Lcd/Lcd.h"
 
 #define DEBUG_PRINTER Serial
 #define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
