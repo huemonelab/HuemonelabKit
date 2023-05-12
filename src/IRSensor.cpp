@@ -26,9 +26,11 @@ IRSensor::IRSensor(uint8_t pin)
 }
 
 
+//* 혼동을 방지하기 위해 LOW <-> HIGH (원래 IR sensor 의 경우 감지 시 LOW )
 int IRSensor::read()
 {
-  return digitalRead(_pin);
+  if ( digitalRead(_pin) == LOW ) return HIGH;
+  return LOW;
 }
 
 #endif

@@ -291,13 +291,27 @@ private:
 /**
  * Updated at 2023.5.11
 */
+enum callibrateLevel 
+{
+  low = 5,
+  high = 10  
+};
+
 class ShockSensor
 {
 public:
   ShockSensor(uint8_t pin);
-  int read();
-private:
+  void callibrate(bool callibrated);
+  void setCallibrateLevel(callibrateLevel level);
+  int read(); // read value with digitalWrite (if shocked, HIGH value returned)
+  
+private: 
+  bool _callibrated; // 0 - false, 1 - true
+  int _count; // 0 - default;
   uint8_t _pin;
+  callibrateLevel _level;
+
+  int readRaw();
 };
 
 /**
