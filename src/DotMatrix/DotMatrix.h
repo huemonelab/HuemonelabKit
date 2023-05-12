@@ -17,7 +17,7 @@
 
 #include "Arduino.h"
 #include <SPI.h>
-#include "./MD_Parola/MD_Parola.h"
+#include "../lib/MD_Parola/MD_Parola.h"
 
 enum textEffect
 {

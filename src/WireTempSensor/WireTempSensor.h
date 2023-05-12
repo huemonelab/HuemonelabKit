@@ -17,8 +17,8 @@
 #pragma once
 
 #include "Arduino.h"
-#include "./OneWire/OneWire.h"
-#include "./DallasTemperature/DallasTemperature.h"
+#include "../lib/OneWire/OneWire.h"
+#include "../lib/DallasTemperature/DallasTemperature.h"
 
 class WireTempSensor
 {
