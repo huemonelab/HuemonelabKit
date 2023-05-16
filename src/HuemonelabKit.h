@@ -328,4 +328,17 @@ private:
   uint8_t _pin;
 };
 
+/**
+ * Updated at 23.5.16
+*/
+class PotSensor
+{
+public:
+  PotSensor(uint8_t pin);
+  int read(int from = 0, int to = 1023); 
+  
+private:
+  uint8_t _pin;
+};
+
 #endif
