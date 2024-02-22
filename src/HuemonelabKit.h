@@ -1,5 +1,5 @@
 /* 
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, February 2024
 
  * This software is provided "AS IS" only for educational purpose using arduino kit made by Huemone Lab.
  * Unauthorized for copying, modifying, distributing of this code.
@@ -339,6 +339,19 @@ public:
   
 private:
   uint8_t _pin;
+};
+
+/* 
+ * Updataed at 24.2.22
+ */
+
+class FAN {
+public:
+	FAN(uint8_t pin);
+	void on();
+	void off();
+private:
+	uint8_t _pin;
 };
 
 #endif
