@@ -371,12 +371,12 @@ private:
 
 class WaterPumpMotor : public Motor {
 public:
-    WaterPumpMotor(int LN1, int LN2) : Motor(LN1, LN2) {}
+    WaterPumpMotor(uint8_t LN1, uint8_t LN2) : Motor(LN1, LN2) {}
 };
 
 class DCMotor : public Motor {
 public:
-    DCMotor(int LN1, int LN2) : Motor(LN1, LN2) {}
+    DCMotor(uint8_t LN1, uint8_t LN2) : Motor(LN1, LN2) {}
 };
 
 class SoilMoistureSensor {
