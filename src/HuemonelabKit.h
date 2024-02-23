@@ -354,4 +354,39 @@ private:
 	uint8_t _pin;
 };
 
+
+/*
+ * Updated at 24.2.23
+ */
+
+class Motor {
+public:
+    Motor(uint8_t LN1, uint8_t LN2);
+    void on(int dir = 0, int ms = 3000);
+    void off();
+private:
+    uint8_t _LN1;
+    uint8_t _LN2;
+};
+
+class WaterPumpMotor : public Motor {
+public:
+    WaterPumpMotor(int LN1, int LN2) : Motor(LN1, LN2) {}
+};
+
+class DCMotor : public Motor {
+public:
+    DCMotor(int LN1, int LN2) : Motor(LN1, LN2) {}
+};
+
+class SoilMoistureSensor {
+public:
+    SoilMoistureSensor(uint8_t pin) {
+        _pin = pin;
+    }
+    inline int read() { return analogRead(_pin); }
+private:
+    uint8_t _pin;
+};
+
 #endif

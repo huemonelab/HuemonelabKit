@@ -1,0 +1,43 @@
+/*
+ * last updated By HuemoneLab, 23 February 2024
+
+ * This software is provided "AS IS" only for educational purpose using arduino kit made by Huemone Lab.
+ * Unauthorized for copying, modifying, distributing of this code.
+
+ * 본 라이브러리는 (주)휴몬랩이 제작한 아두이노 키트의 실습을 위해 제작되었습니다.
+ * 따라서 모든 저작권은 (주)휴몬랩에 있습니다.
+ * 키트 실습과 같은 교육적 용도로만 사용 및 활용이 가능하며
+ * 무단으로 복사/수정/재배포하거나 코드 전체 혹은 일부를 다른 용도로 사용할 시 법적인 조치를 취할 수 있습니다.
+ */
+
+
+#ifndef HUEMONELAB_MOTOR_CPP
+#define HUEMONELAB_MOTOR_CPP
+
+#include "HuemonelabKit.h"
+
+Motor::Motor(uint8_t LN1, uint8_t LN2) {
+    pinMode(LN1, OUTPUT);
+    pinMode(LN2, OUTPUT);
+    _LN1 = LN1;
+    _LN2 = LN2;
+}
+
+void Motor::on(int dir = 0, int ms = 3000) {
+    if (dir == 0) {
+        digitalWrite(_LN1, HIGH);
+        digitalWrite(_LN2, LOW);
+    }
+    else if (dir == 1) {
+        digitalWrite(_LN1, LOW);
+        digitalWrite(_LN2, HIGH);
+    }
+    delay(ms);
+}
+
+void Motor::off() {
+    digitalWrite(_LN1, LOW);
+    digitalWrite(_LN2, LOW);
+}
+
+#endif
