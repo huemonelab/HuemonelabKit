@@ -9,8 +9,8 @@
  * 키트 실습과 같은 교육적 용도로만 사용 및 활용이 가능하며
  * 무단으로 복사/수정/재배포하거나 코드 전체 혹은 일부를 다른 용도로 사용할 시 법적인 조치를 취할 수 있습니다.
  */
-#ifndef HUEMONELAB_STEPPER_MOTOR_CPP
-#define HUEMONELAB_STEPPER_MOTOR_CPP
+#ifndef HUEMONELAB_BUZZER_CPP
+#define HUEMONELAB_BUZZER_CPP
 
 #include "HuemonelabKit.h"
 

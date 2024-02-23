@@ -10,8 +10,8 @@
  * 무단으로 복사/수정/재배포하거나 코드 전체 혹은 일부를 다른 용도로 사용할 시 법적인 조치를 취할 수 있습니다.
  */
 
-#ifndef HUEMONELAB_SONAR_SENSOR_CPP
-#define HUEMONELAB_SONAR_SENSOR_CPP
+#ifndef HUEMONELAB_MICROPHONE_AMPLIFIER_CPP
+#define HUEMONELAB_MICROPHONE_AMPLIFIER_CPP
 
 #include "HuemonelabKit.h"
 
