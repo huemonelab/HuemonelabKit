@@ -1,6 +1,6 @@
 # 휴몬랩 아두이노 키트용 라이브러리
 
-last updated By HuemoneLab, February 2024
+last updated By HuemoneLab, March 2024
 
 This software is provided "AS IS" only for educational purpose using arduino kit made by Huemone Lab.
 Unauthorized for copying, modifying, distributing of this code.

@@ -1,5 +1,5 @@
 /* 
- * last updated By HuemoneLab, February 2024
+ * last updated By HuemoneLab, March 2024
 
  * This software is provided "AS IS" only for educational purpose using arduino kit made by Huemone Lab.
  * Unauthorized for copying, modifying, distributing of this code.
@@ -387,6 +387,26 @@ public:
     inline int read() { return analogRead(_pin); }
 private:
     uint8_t _pin;
+};
+
+/**
+ * Updated at 24.3.21
+ */
+
+class Servo360 : public Servo
+{
+public:
+    Servo360();
+    uint8_t attach(uint8_t pin);
+    void write(int angle, int time = 0);
+    void stop();
+    void detach();
+    void writeMicroseconds(int angluar_speed);
+    int read();
+    int readMicroseconds();
+    bool attached();
+private:
+    int _angle;
 };
 
 #endif
