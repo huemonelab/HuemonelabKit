@@ -38,11 +38,9 @@ uint8_t Servo360::attach(uint8_t pin) {
 void Servo360::write(int angle, int time = 0) {
     Servo::write(90);
     int val = angle < _angle ? 80 : (angle > _angle ? 100 : 90);
-    Serial.println("   ");
-    Serial.println(val);
     Servo::write(val);
     delay(time);
-    //Servo::write(90);
+    if (time != 0) Servo::write(90);
     _angle = angle;
 }
 
