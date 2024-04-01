@@ -1,13 +1,5 @@
 /* 
  * last updated By HuemoneLab, March 2024
-
- * This software is provided "AS IS" only for educational purpose using arduino kit made by Huemone Lab.
- * Unauthorized for copying, modifying, distributing of this code.
-
- * 본 라이브러리는 (주)휴몬랩이 제작한 아두이노 키트의 실습을 위해 제작되었습니다.
- * 따라서 모든 저작권은 (주)휴몬랩에 있습니다.
- * 키트 실습과 같은 교육적 용도로만 사용 및 활용이 가능하며
- * 무단으로 복사/수정/재배포하거나 코드 전체 혹은 일부를 다른 용도로 사용할 시 법적인 조치를 취할 수 있습니다.
  */
 
 #ifndef HUEMONELAB_KIT_H
@@ -16,14 +8,19 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 #include <Servo.h>
-#include "./DotMatrix/DotMatrix.h"
-#include "./Keypad/Keypad.h"
-#include "./WireTempSensor/WireTempSensor.h"
-#include "./Lcd/Lcd.h"
+#include <DallasTemperature.h>
+#include <Keypad.h>
+#include <LiquidCrystal_I2C.h>
+#include <MD_Parola.h>
+#include <Wire.h>
 
 #define DEBUG_PRINTER Serial
 #define DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
 #define DEBUG_PRINTLN(...) { DEBUG_PRINTER.println(__VA_ARGS__); }
+
+// envs for Numpad
+#define DEFAULT_KEYPAD_COL_SIZE 4
+#define DEFAULT_KEYPAD_ROW_SIZE 4
 
 /* LED */
 class Led
@@ -407,6 +404,84 @@ public:
     bool attached();
 private:
     int _angle;
+};
+
+
+/*
+ * Updated at 24.4.1
+ */
+class Numpad {
+public:
+    Numpad();
+    void setKeys(char keys[DEFAULT_KEYPAD_ROW_SIZE][DEFAULT_KEYPAD_COL_SIZE]);
+    void setRows(byte r1, byte r2, byte r3, byte r4);
+    void setCols(byte c1, byte c2, byte c3, byte c4);
+    char getKey();
+    bool getKeys();
+
+private:
+    Keypad* _pad;
+    char _defaultKeys[DEFAULT_KEYPAD_ROW_SIZE][DEFAULT_KEYPAD_COL_SIZE];
+    byte _defaultRowPins[DEFAULT_KEYPAD_ROW_SIZE];
+    byte _defaultColPins[DEFAULT_KEYPAD_COL_SIZE];
+};
+
+class WireTempSensor
+{
+public:
+    WireTempSensor(uint8_t pin);
+    float read();
+
+private:
+    OneWire _oneWire;
+    DallasTemperature _dallasTemp;
+    uint8_t _pin;
+};
+
+class lcdAddress {
+public:
+    lcdAddress(void);
+};
+
+class Lcd {
+public:
+    Lcd();
+    Lcd(uint8_t addr);
+    void getAddress();
+    void setCursor(uint8_t row, uint8_t col);
+    void begin();
+    void scrollLeft(unsigned long ms = 300);
+    void scrollRight(unsigned long ms = 300);
+    void print(char* pText);
+    void clear();
+    void backlight();
+private:
+    LiquidCrystal_I2C* _lcd;
+};
+
+enum textEffect
+{
+    left = PA_SCROLL_LEFT,
+    right = PA_SCROLL_RIGHT
+};
+
+class DotMatrix
+{
+public:
+    DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t numDevices = 1);
+    void clear();
+    void setIntensity(uint8_t intensity);
+    void printScroll(const char* pText, textEffect effect = left);
+    void printImage(const byte images[8]);
+    void printEmoji(int num);
+    void print(const char* text);
+    void print(int n, int nn = DEC);
+
+private:
+    MD_Parola* _dot;
+    uint8_t _dataPin;
+    uint8_t _csPin;
+    uint8_t _clkPin;
 };
 
 #endif
