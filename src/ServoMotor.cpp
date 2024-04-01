@@ -11,8 +11,9 @@
  * 서보모터 세팅
  * - Servo.h 객체 생성
  */
-ServoMotor::ServoMotor() : Servo()
+ServoMotor::ServoMotor()
 {
+    _sv = new Servo();
 }
 
 /*
@@ -21,7 +22,7 @@ ServoMotor::ServoMotor() : Servo()
  */
 uint8_t ServoMotor::attach(uint8_t pin)
 {
-  return Servo::attach(pin);
+  return _sv->attach(pin);
 }
 
 /*
@@ -34,7 +35,7 @@ void ServoMotor::write(int angle)
   if (angle < 0 || angle > 180)
     DEBUG_PRINTLN("모터 각도는 0~180 사이로 설정해주세요."); // 각도가 0~180 이 아닐 경우 오류메세지 출력
 
-  Servo::write(angle);
+  _sv->write(angle);
 }
 
 /* 
@@ -43,27 +44,27 @@ void ServoMotor::write(int angle)
  */
 void ServoMotor::writeMicroseconds(int angle)
 {
-  Servo::writeMicroseconds(angle);
+    _sv->writeMicroseconds(angle);
 }
 
 void ServoMotor::detach()
 {
-  Servo::detach();
+    _sv->detach();
 }
 
 int ServoMotor::read()
 {
-  return Servo::read();
+  return _sv->read();
 }
 
 int ServoMotor::readMicroseconds()
 {
-  return Servo::readMicroseconds();
+  return _sv->readMicroseconds();
 }
 
 bool ServoMotor::attached()
 {
-  return Servo::attached();
+  return _sv->attached();
 }
 
 #endif

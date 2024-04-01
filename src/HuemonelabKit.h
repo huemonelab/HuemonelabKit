@@ -122,7 +122,7 @@ private:
 };
 
 /* 서보모터 */
-class ServoMotor : public Servo
+class ServoMotor
 {
 public:
   ServoMotor();
@@ -136,6 +136,8 @@ public:
   int read();
   int readMicroseconds();
   bool attached();
+private:
+    Servo* _sv;
 };
 
 /* 조이스틱 모듈 */
@@ -390,7 +392,7 @@ private:
  * Updated at 24.3.21
  */
 
-class Servo360 : public Servo
+class Servo360
 {
 public:
     Servo360();
@@ -404,6 +406,7 @@ public:
     bool attached();
 private:
     int _angle;
+    Servo* _sv;
 };
 
 

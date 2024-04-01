@@ -11,7 +11,8 @@
   * 서보모터 세팅
   * - Servo.h 객체 생성
   */
-Servo360::Servo360() : Servo() {
+Servo360::Servo360() {
+    _sv = new Servo();
     _angle = 90;
 }
 
@@ -20,7 +21,7 @@ Servo360::Servo360() : Servo() {
  * - 핀 설정
  */
 uint8_t Servo360::attach(uint8_t pin) {
-    return Servo::attach(pin);
+    return _sv->attach(pin);
 }
 
 /*
@@ -28,11 +29,11 @@ uint8_t Servo360::attach(uint8_t pin) {
  *   [주의] 물리적인 사유로 움직이지 못하는 지점까지 움직이면 삐 소리가 날 수 있음
  */
 void Servo360::write(int angle, int time = 0) {
-    Servo::write(90);
+    _sv->write(90);
     int val = angle < _angle ? 80 : (angle > _angle ? 100 : 90);
-    Servo::write(val);
+    _sv->write(val);
     delay(time);
-    if (time != 0) Servo::write(90);
+    if (time != 0) _sv->write(90);
     _angle = angle;
 }
 
@@ -40,7 +41,7 @@ void Servo360::write(int angle, int time = 0) {
  * 서보모터를 정지시키는 코드
  */
 void Servo360::stop() {
-    Servo::write(90);
+    _sv->write(90);
     _angle = 90;
 }
 
@@ -57,20 +58,20 @@ int Servo360::read() {
  * - 참고: [Servo Library](https://www.arduino.cc/en/reference/servo)
  */
 int Servo360::readMicroseconds() {
-    return Servo::readMicroseconds();
+    return _sv->readMicroseconds();
 }
 
 bool Servo360::attached() {
-    return Servo::attached();
+    return _sv->attached();
 }
 
 void Servo360::writeMicroseconds(int angular_speed) {
-    Servo::writeMicroseconds(angular_speed);
+    _sv->writeMicroseconds(angular_speed);
 }
 
 
 void Servo360::detach() {
-    Servo::detach();
+    _sv->detach();
 }
 
 #endif
