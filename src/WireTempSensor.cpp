@@ -1,5 +1,7 @@
 /*
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, April 2024
+ * 
+ * Dependency : DallasTemprature by Miles Burton, Tim Newsome, Guli Barros, Rob Tillaart
  */
 
 #ifndef HUEMONELAB_WIRE_TEMP_SENSOR_CPP

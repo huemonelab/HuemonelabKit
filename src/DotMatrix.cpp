@@ -1,5 +1,7 @@
 /*
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, April 2024
+ * 
+ * Dependency : MD_Parola by magicDesigns
  */
 
 #ifndef HUEMONELAB_DOT_MATRIX_CPP

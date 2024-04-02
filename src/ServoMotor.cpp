@@ -1,5 +1,6 @@
 /* 
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, April 2024
+ * 
  */
 
 #ifndef HUEMONELAB_SERVO_MOTOR_CPP

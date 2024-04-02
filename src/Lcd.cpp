@@ -1,5 +1,7 @@
 /* 
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, April 2024
+ * 
+ * Dependency : LiquidCrystal I2C by Frank de Brabander
  */
 
 #ifndef HUEMONELAB_LCD_CPP
