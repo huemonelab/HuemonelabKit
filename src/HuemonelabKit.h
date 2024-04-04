@@ -455,9 +455,12 @@ public:
     void begin();
     void scrollLeft(unsigned long ms = 300);
     void scrollRight(unsigned long ms = 300);
-    void print(char* pText);
     void clear();
     void backlight();
+    template <typename T>
+    void print(T pVal) {
+        _lcd->print(pVal);
+    }
 private:
     LiquidCrystal_I2C* _lcd;
 };
@@ -472,13 +475,15 @@ class DotMatrix
 {
 public:
     DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t numDevices = 1);
-    void clear();
+    void clear(); 
     void setIntensity(uint8_t intensity);
     void printScroll(const char* pText, textEffect effect = left);
     void printImage(const byte images[8]);
     void printEmoji(int num);
-    void print(const char* text);
-    void print(int n, int nn = DEC);
+    template <typename T>
+    void print(T val) {
+        _dot->print(val);
+    }
 
 private:
     MD_Parola* _dot;

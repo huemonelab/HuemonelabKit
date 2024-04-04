@@ -1,6 +1,6 @@
 #include <HuemonelabKit.h>
 
-Keypad keypad;
+Numpad keypad;
 
 char keys[4][4] = {
  {'*', '0', '#', 'D'},

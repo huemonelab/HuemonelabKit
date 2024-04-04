@@ -1,6 +1,6 @@
 #include <HuemonelabKit.h>
 
-Keypad keypad;
+Numpad keypad;
 
 void setup() {
   keypad.setRows(6, 7, 8, 9); // r1~4 순서대로

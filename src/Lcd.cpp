@@ -88,11 +88,6 @@ void Lcd::scrollRight(unsigned long ms = 300)
 void Lcd::setCursor(uint8_t row, uint8_t col) {
     _lcd->setCursor(col, row);
 }
-
-void Lcd::print(char* pText) {
-    _lcd->print(pText);
-}
-
 void Lcd::clear() {
     _lcd->clear();
 }

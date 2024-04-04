@@ -630,12 +630,4 @@ void DotMatrix::setIntensity(uint8_t intensity) {
     _dot->setIntensity(intensity);
 }
 
-void DotMatrix::print(const char* text) {
-    _dot->print(text);
-}
-
-void DotMatrix::print(int n, int nn) {
-    _dot->print(n, nn);
-}
-
 #endif
