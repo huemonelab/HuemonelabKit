@@ -1,5 +1,7 @@
 /*
  * last updated By HuemoneLab, April 2024
+ * 
+ * Dependency : Servo by Michael Margolis, Arduino
  */
 
 #ifndef HUEMONELAB_SERVO_360_CPP
@@ -8,25 +10,27 @@
 #include "HuemonelabKit.h"
 
  /*
-  * ¼­º¸¸ðÅÍ ¼¼ÆÃ
-  * - Servo.h °´Ã¼ »ý¼º
+  * ì„œë³´ëª¨í„° ì„¸íŒ…
+  * - Servo.h ê°ì²´ ìƒì„±
   */
+
 Servo360::Servo360() {
     _sv = new Servo();
     _angle = 90;
 }
 
+
 /*
- * ¼­º¸¸ðÅÍ ¼¼ÆÃ
- * - ÇÉ ¼³Á¤
+ * ì„œë³´ëª¨í„° ì„¸íŒ…
+ * - í•€ ì„¤ì •
  */
 uint8_t Servo360::attach(uint8_t pin) {
     return _sv->attach(pin);
 }
 
 /*
- * ¼­º¸¸ðÅÍ ÀÛµ¿ ÄÚµå
- *   [ÁÖÀÇ] ¹°¸®ÀûÀÎ »çÀ¯·Î ¿òÁ÷ÀÌÁö ¸øÇÏ´Â ÁöÁ¡±îÁö ¿òÁ÷ÀÌ¸é »ß ¼Ò¸®°¡ ³¯ ¼ö ÀÖÀ½
+ * ì„œë³´ëª¨í„° ìž‘ë™ ì½”ë“œ
+ *   [ì£¼ì˜] ë¬¼ë¦¬ì ì¸ ì‚¬ìœ ë¡œ ì›€ì§ì´ì§€ ëª»í•˜ëŠ” ì§€ì ê¹Œì§€ ì›€ì§ì´ë©´ ì‚ ì†Œë¦¬ê°€ ë‚  ìˆ˜ ìžˆìŒ
  */
 void Servo360::write(int angle, int time = 0) {
     _sv->write(90);
@@ -38,7 +42,7 @@ void Servo360::write(int angle, int time = 0) {
 }
 
 /*
- * ¼­º¸¸ðÅÍ¸¦ Á¤Áö½ÃÅ°´Â ÄÚµå
+ * ì„œë³´ëª¨í„°ë¥¼ ì •ì§€ì‹œí‚¤ëŠ” ì½”ë“œ
  */
 void Servo360::stop() {
     _sv->write(90);
@@ -46,7 +50,7 @@ void Servo360::stop() {
 }
 
 /*
- * ¼­º¸¸ðÅÍÀÇ ÇöÀç °ª(Á¤È®È÷´Â ÀÌÀüÀÇ ÀÔ·Â °ª)À» ÀÐ¾î¿À´Â ÄÚµå
+ * ì„œë³´ëª¨í„°ì˜ í˜„ìž¬ ê°’(ì •í™•ížˆëŠ” ì´ì „ì˜ ìž…ë ¥ ê°’)ì„ ì½ì–´ì˜¤ëŠ” ì½”ë“œ
  */
 
 int Servo360::read() {
@@ -54,8 +58,8 @@ int Servo360::read() {
 }
 
 /*
- * Servo.h ±âº» ÇÔ¼ö
- * - Âü°í: [Servo Library](https://www.arduino.cc/en/reference/servo)
+ * Servo.h ê¸°ë³¸ í•¨ìˆ˜
+ * - ì°¸ê³ : [Servo Library](https://www.arduino.cc/en/reference/servo)
  */
 int Servo360::readMicroseconds() {
     return _sv->readMicroseconds();

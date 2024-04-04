@@ -1,5 +1,7 @@
 /* 
- * last updated By HuemoneLab, May 2023
+ * last updated By HuemoneLab, April 2024
+ * 
+ * Dependency : SoftwareSerial by Arduino
  */
 
 #ifndef HUEMONELAB_BLUETOOTH_CPP
@@ -12,10 +14,10 @@
  * - pinMode 설정
  * - SoftwareSerial 객체 생성
  */
-Bluetooth::Bluetooth(uint8_t tx, uint8_t rx) : SoftwareSerial(tx, rx)
-{
+Bluetooth::Bluetooth(uint8_t tx, uint8_t rx) {
   _tx = tx;
   _rx = rx;
+  _serial = new SoftwareSerial(tx, rx);
 }
 
 /*
@@ -28,11 +30,11 @@ void Bluetooth::setName()
   {
     if (DEBUG_PRINTER.available())
     {
-      SoftwareSerial::write(DEBUG_PRINTER.read());
+      _serial->write(DEBUG_PRINTER.read());
     }
-    if (SoftwareSerial::available())
+    if (_serial->available())
     {
-      DEBUG_PRINTER.write(SoftwareSerial::read());
+      DEBUG_PRINTER.write(_serial->read());
     }
   }
 }
@@ -42,7 +44,7 @@ void Bluetooth::setName()
  */
 void Bluetooth::begin(long speed)
 {
-  return SoftwareSerial::begin(speed);
+  return _serial->begin(speed);
 }
 
 /*
@@ -50,7 +52,7 @@ void Bluetooth::begin(long speed)
  */
 int Bluetooth::read()
 {
-  return SoftwareSerial::read();
+  return _serial->read();
 }
 
 /*
@@ -59,56 +61,56 @@ int Bluetooth::read()
  */
 String Bluetooth::readString()
 {
-  return SoftwareSerial::readString();
+  return _serial->readString();
 }
 
 /* 
- * SoftwareSerial.h 기본 함수 
+ * SoftwareSerial.h 기본 함수 Wrapping
  * - 참고: [Software Serial Library](https://www.arduino.cc/en/Reference/softwareSerial)
  */
 void Bluetooth::end()
 {
-  return SoftwareSerial::end();
+  return _serial->end();
 }
 
 bool Bluetooth::listen()
 {
-  return SoftwareSerial::listen();
+  return _serial->listen();
 }
 
 bool Bluetooth::isListening()
 {
-  return SoftwareSerial::isListening();
+  return _serial->isListening();
 }
 
 bool Bluetooth::stopListening()
 {
-  return SoftwareSerial::stopListening();
+  return _serial->stopListening();
 }
 
 bool Bluetooth::overflow()
 {
-  return SoftwareSerial::overflow();
+  return _serial->overflow();
 }
 
 int Bluetooth::peek()
 {
-  return SoftwareSerial::peek();
+  return _serial->peek();
 }
 
 size_t Bluetooth::write(uint8_t byte)
 {
-  return SoftwareSerial::write(byte);
+  return _serial->write(byte);
 }
 
 int Bluetooth::available()
 {
-  return SoftwareSerial::available();
+  return _serial->available();
 }
 
 void Bluetooth::flush()
 {
-  return SoftwareSerial::flush();
+  return _serial->flush();
 }
 
 #endif

@@ -155,8 +155,8 @@ private:
   uint8_t _button;
 };
 
-/* Bluetooth - inheritance: SoftwareSerial */
-class Bluetooth : public SoftwareSerial
+/* Bluetooth */
+class Bluetooth
 {
 public:
   Bluetooth(uint8_t tx, uint8_t rx); // pin 설정
@@ -167,7 +167,7 @@ public:
   String readString();     // 블루투스에서 보내는 문장(string) 읽기
   virtual int available(); // 블루투스에서 보낸 값이 있는지 감지
 
-  /* from SoftwareSerial.h */
+
   void end();
   bool listen();
   bool isListening();
@@ -178,6 +178,7 @@ public:
   virtual void flush();
 
 private:
+    SoftwareSerial* _serial;
   uint8_t _tx;
   uint8_t _rx;
 };

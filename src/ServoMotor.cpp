@@ -1,6 +1,7 @@
 /* 
  * last updated By HuemoneLab, April 2024
  * 
+ * Dependency : Servo by Michael Margolis, Arduino
  */
 
 #ifndef HUEMONELAB_SERVO_MOTOR_CPP

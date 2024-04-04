@@ -27,37 +27,37 @@ Email : ask@huemone.com
 </a>
 
 --------------
-### About Us
-------------------
+### About Our Services
+
 </br>
-<figure class='third'>
-    <p align="center">
-        <a href="https://www.copool.kr/">        
-            <img src = "./imgs/copool.png" align="center" width="30%">    
-        </a>
-        &nbsp
-        <a href="https://makermate.kr/">        
-            <img src = "./imgs/Makermate.png" align="center" width="30%">    
-        </a>
-        &nbsp
-        <a href="https://huemoneacademy.com/">        
-            <img src = "./imgs/Academy.png" align="center" width="30%">    
-        </a>
-    </p>
-</figure>
-&nbsp
 <figure class='third'>
     <p align="center">
         <a href="https://www.copool.kr/">        
             <img src = "./imgs/copool_en.png" align="center" width="30%">    
         </a>
-        &nbsp
+        &nbsp;
         <a href="https://makermate.kr/">        
             <img src = "./imgs/Makermate_en.png" align="center" width="30%">    
         </a>
-        &nbsp
+        &nbsp;
         <a href="https://huemoneacademy.com/">        
             <img src = "./imgs/Academy_en.png" align="center" width="30%">    
+        </a>
+    </p>
+</figure>
+&nbsp;
+<figure class='third'>
+    <p align="center">
+        <a href="https://www.copool.kr/">        
+            <img src = "./imgs/copool.png" align="center" width="30%">    
+        </a>
+        &nbsp;
+        <a href="https://makermate.kr/">        
+            <img src = "./imgs/Makermate.png" align="center" width="30%">    
+        </a>
+        &nbsp;
+        <a href="https://huemoneacademy.com/">        
+            <img src = "./imgs/Academy.png" align="center" width="30%">    
         </a>
     </p>
 </figure>
