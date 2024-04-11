@@ -1,5 +1,5 @@
 /*
- * last updated By HuemoneLab, 22 February 2024
+ * last updated By HuemoneLab, 05 April 2024
  */
 
 
@@ -8,26 +8,27 @@
 
 #include "HuemonelabKit.h"
 
-/*
- * 5V FAN ¼¼ÆÃ
- * - pinMode ¼³Á¤
- */
+ /*
+  * 5V FAN ì„¸íŒ…
+  * - pinMode ì„¤ì •
+  */
 FAN::FAN(uint8_t pin) {
 	_pin = pin;
 	pinMode(pin, OUTPUT);
+	digitalWrite(_pin, HIGH);
 }
 
 /*
- * FAN ÄÑ±â
- * LOW °ªÀ» ³Ö¾îÁà¾ß ÄÑÁü¿¡ À¯ÀÇ
+ * FAN ì¼œê¸°
+ * LOW ê°’ì„ ë„£ì–´ì¤˜ì•¼ ì¼œì§ì— ìœ ì˜
  */
 void FAN::on() {
 	digitalWrite(_pin, LOW);
 }
 
 /*
- * FAN ²ô±â
- * HIGH °ªÀ» ³Ö¾îÁà¾ß ²¨Áü¿¡ À¯ÀÇ
+ * FAN ë„ê¸°
+ * HIGH ê°’ì„ ë„£ì–´ì¤˜ì•¼ êº¼ì§ì— ìœ ì˜
  */
 void FAN::off() {
 	digitalWrite(_pin, HIGH);

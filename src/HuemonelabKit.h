@@ -148,11 +148,12 @@ public:
   void attach(uint8_t button);        // 버튼 pin 설정
   int read(char dir);                 // vrx, vry 값 읽기
   int isPushed();                     // 버튼 값 읽기
-
+  int direction(bool toggle = true);
 private:
   uint8_t _vrX;
   uint8_t _vrY;
   uint8_t _button;
+  uint8_t _prev_state;
 };
 
 /* Bluetooth */
@@ -458,6 +459,7 @@ public:
     void scrollRight(unsigned long ms = 300);
     void clear();
     void backlight();
+    void screens(int n, int val_1 = 0, int val_2 = 0);
     template <typename T>
     void print(T pVal) {
         _lcd->print(pVal);

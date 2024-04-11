@@ -1,7 +1,7 @@
 # HuemonelabKit
 
 ## Arduino Library for HuemoneLab Arduino Kit
-### Version : 4.0.2
+### Version : 4.0.3
 <a href="https://huemoneedu.com/">
     <p align="center">
     <img src = "./imgs/hmlab.png", height=60%, width=60%>

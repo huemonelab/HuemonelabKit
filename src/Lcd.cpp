@@ -96,4 +96,51 @@ void Lcd::backlight() {
     _lcd->backlight();
 }
 
+void Lcd::screens(int n, int val_1 = 0, int val_2 = 0) {
+    setCursor(0, 0);
+    switch (n) {
+    case 1:
+        print("SMART CONTROLLER");
+        setCursor(1, 0);
+        print("   <--    -->   ");
+        break;
+    case 2: // 온습도
+        print("   Temp   : ");
+        print(val_1);
+        print(" C");
+        setCursor(1, 0);
+        print(" Humidity : ");
+        print(val_2);
+        print("%");
+        break;
+    case 3: // 토양수분센서
+        print(" Soil  Moisture");
+        setCursor(1, 0);
+        print("  : ");
+        print(val_1);
+        break;
+    case 4: // 조도센서
+        print("  Photoresistor");
+        setCursor(1, 0);
+        print("  : ");
+        print(val_1);
+        break;
+    case 5: // RGB LED
+        print("    RGB  LED");
+        setCursor(1, 0);
+        print("ON(UP)/OFF(DOWN)");
+        break;
+    case 6: // 5v fan
+        print("     5V FAN");
+        setCursor(1, 0);
+        print("ON(UP)/OFF(DOWN)");
+        break;
+    case 7: // water pump
+        print("   WATER PUMP");
+        setCursor(1, 0);
+        print("ON(UP)/OFF(DOWN)");
+        break;
+    }
+}
+
 #endif
