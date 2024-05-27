@@ -1,6 +1,6 @@
 /*
  * last updated By HuemoneLab, April 2024
- * 
+ *
  * Dependency : Keypad / by Mark Stanley, Alexander Brevig
  */
 
@@ -65,7 +65,7 @@ char Numpad::getKey() {
 }
 
 bool Numpad::getKeys() {
-    return _pad->getKey();
+    return _pad->getKeys();
 }
 
 #endif

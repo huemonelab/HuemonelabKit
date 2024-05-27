@@ -1,13 +1,15 @@
 /*
- * last updated By HuemoneLab, April 2024
- * 
- * Dependency : MD_Parola by magicDesigns
+ * last updated By HuemoneLab, May 2024
+ *
+ * Dependency : MD_MAX72XX by magicDesigns
  */
 
 #ifndef HUEMONELAB_DOT_MATRIX_CPP
 #define HUEMONELAB_DOT_MATRIX_CPP
 
 #include "HuemonelabKit.h"
+
+#define MAX_BUF 100
 
 #define EMOJI_COUNT 70
 const byte IMAGES[EMOJI_COUNT][8] = {
@@ -570,64 +572,64 @@ const byte IMAGES[EMOJI_COUNT][8] = {
      B11111111,
      B11100111,
      B11000011,
-     B10000001}};
+     B10000001} };
 
-DotMatrix::DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t numDevices = 1){
-    _dot = new MD_Parola(MD_MAX72XX::GENERIC_HW, dataPin, clkPin, csPin, numDevices);
-    _dot->begin();
-    _dot->setTextAlignment(PA_CENTER);
-    _dot->setSpeedInOut(100, 100);
-    _dot->setPause(10 * _dot->getSpeed());
-    _dataPin = dataPin;
-    _csPin = csPin;
-    _clkPin = clkPin;
+void DotMatrix::print(char val) {
+    uint8_t buf[8] = { 0, };
+    uint8_t len_val = _mx.getChar(val, 8, buf);
+    uint8_t space = (8 - len_val) / 2;
+    _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
+    for (uint8_t i = 0; i < 8; i++) _mx.setColumn(i, 0);
+    for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - space - i, buf[i]);
+    _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
 }
 
-void DotMatrix::clear() {
-    _dot->displayClear();
+void DotMatrix::print(uint8_t val) {
+    char text_val = (char)(val + 48);
+    print(text_val);
 }
 
-void DotMatrix::printScroll(const char* pText, textEffect effect = left)
-{
-    _dot->displayText((char*)pText, PA_CENTER, _dot->getSpeed(), _dot->getPause(), (textEffect_t)effect);
-    while (!_dot->displayAnimate()) {}
-}
-
-void DotMatrix::printImage(const byte images[8])
-{
-    byte status[64];
-    byte spidata[16];
-    for (int row = 0; row < ROW_SIZE; row++) {
-        for (int col = 0; col < COL_SIZE; col++) {
-            bool state = bitRead(images[col], row);
-            int offset = 0;
-            byte val = B10000000 >> col;
-            if (state) {
-                status[offset + row] = status[offset + row] | val;
-            } else {
-                val = ~val;
-                status[offset + row] = status[offset + row] & val;
-            }
-            byte opcode = row + 1;
-            byte data = status[offset + row];
-            int maxbytes = 1 * 2;
-            for (int i = 0; i < maxbytes; i++) spidata[i] = (byte)0;
-            spidata[offset + 1] = opcode;
-            spidata[offset] = data;
-            digitalWrite(_csPin, LOW);
-            for (int i = maxbytes; i > 0; i--) shiftOut(_dataPin, _clkPin, MSBFIRST, spidata[i - 1]);
-            digitalWrite(_csPin, HIGH);
+void DotMatrix::printScroll(const char* pText, textEffect dir = right) {
+    uint8_t buf[MAX_BUF] = { 0, };
+    char* textptr = pText;
+    uint8_t buf_cur = 1;
+    while (*textptr != '\0') {
+        uint8_t len_val = _mx.getChar(*textptr, 8, &buf[buf_cur]);
+        buf_cur += (len_val + 1);
+        textptr++;
+    }
+    uint32_t prevTimeAnim = millis();
+    uint8_t frame = 0;
+    while (frame < buf_cur) {
+        if (millis() - prevTimeAnim > 75) {
+            _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
+            for (uint8_t i = 0; i < 8; i++) _mx.setColumn(i, 0);
+            if ((int)dir) for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - i, buf[i + frame]);
+            else for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - i, buf[buf_cur - frame + i - 1]);
+            _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
+            frame++;
+            prevTimeAnim = millis();
         }
     }
 }
 
-void DotMatrix::printEmoji(int num) {
-    if (num > EMOJI_COUNT || num <= 0)  return;
-        printImage(IMAGES[num - 1]);
+void DotMatrix::print(const char* pText) {
+    if (pText[1] == '\0') print(*pText);
+    else printScroll(pText, 1);
 }
 
-void DotMatrix::setIntensity(uint8_t intensity) {
-    _dot->setIntensity(intensity);
+void DotMatrix::printImage(const byte images[8]) {
+    _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
+    for (uint8_t i = 0; i < 8; i++) _mx.setColumn(i, 0);
+    for (uint8_t i = 0; i < 8; i++) _mx.setRow(7 - i, images[7 - i]);
+    _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
 }
+
+
+void DotMatrix::printEmoji(int num) {
+    if (num > EMOJI_COUNT || num <= 0)  return;
+    printImage(IMAGES[num - 1]);
+}
+
 
 #endif
