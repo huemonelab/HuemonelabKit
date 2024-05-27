@@ -1,5 +1,5 @@
 /* 
- * last updated By HuemoneLab, April 2024
+ * last updated By HuemoneLab, May 2024
  */
 
 #ifndef HUEMONELAB_KIT_H
@@ -174,12 +174,18 @@ public:
   bool isListening();
   bool stopListening();
   bool overflow();
+
+  template <typename T>
+  size_t print(T val) {
+      return _serial->print(val);
+  }
+
   int peek();
   virtual size_t write(uint8_t byte);
   virtual void flush();
 
 private:
-    SoftwareSerial* _serial;
+  SoftwareSerial* _serial;
   uint8_t _tx;
   uint8_t _rx;
 };
