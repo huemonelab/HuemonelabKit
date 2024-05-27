@@ -454,51 +454,53 @@ public:
     lcdAddress(void);
 };
 
-class Lcd {
+class Lcd : public Print {
 public:
-    Lcd();
-    Lcd(uint8_t addr);
-    void getAddress();
-    void setCursor(uint8_t row, uint8_t col);
+    Lcd(uint8_t lcd_Addr, uint8_t lcd_cols = LCD_COLS, uint8_t lcd_rows = LCD_ROWS)
+        : _Addr(lcd_Addr), _cols(lcd_cols), _rows(lcd_rows), _backlightval(0) { }
+    size_t write(uint8_t value);
+    void clear();
+    void send(uint8_t value);
+    void write4bits(uint8_t value);
+    void expanderWrite(uint8_t _data);
     void begin();
+    void backlight();
+    void setCursor(uint8_t row, uint8_t col);
     void scrollLeft(unsigned long ms = 300);
     void scrollRight(unsigned long ms = 300);
-    void clear();
-    void backlight();
     void screens(int n, int val_1 = 0, int val_2 = 0);
-    template <typename T>
-    void print(T pVal) {
-        _lcd->print(pVal);
-    }
 private:
-    LiquidCrystal_I2C* _lcd;
+    uint8_t _Addr;
+    uint8_t _cols;
+    uint8_t _rows;
+    uint8_t _backlightval;
 };
 
 enum textEffect
 {
-    left = PA_SCROLL_LEFT,
-    right = PA_SCROLL_RIGHT
+    left = 0,
+    right = 1
 };
 
-class DotMatrix
-{
+class DotMatrix {
 public:
-    DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t numDevices = 1);
-    void clear(); 
-    void setIntensity(uint8_t intensity);
-    void printScroll(const char* pText, textEffect effect = left);
-    void printImage(const byte images[8]);
-    void printEmoji(int num);
-    template <typename T>
-    void print(T val) {
-        _dot->print(val);
+    DotMatrix(uint8_t dataPin, uint8_t csPin, uint8_t clkPin, uint8_t maxDevices = 1)
+        : _mx(MD_MAX72XX::GENERIC_HW, dataPin, clkPin, csPin, maxDevices)
+    {
+        _mx.begin();
+        _mx.clear();
     }
 
+    inline void clear() { _mx.clear(); }
+    void print(char val);
+    void printScroll(const char* pText, textEffect dir = right);
+    void print(const char* pText);
+    inline void print(int val) { print((char)(val + 48)); }
+    void printImage(const byte images[8]);
+    void printEmoji(int num);
+    inline void setIntensity(uint8_t intensity) { _mx.control(MD_MAX72XX::INTENSITY, intensity); }
 private:
-    MD_Parola* _dot;
-    uint8_t _dataPin;
-    uint8_t _csPin;
-    uint8_t _clkPin;
+    MD_MAX72XX _mx;
 };
 
 #endif
