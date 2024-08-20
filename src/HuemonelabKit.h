@@ -503,4 +503,85 @@ private:
     MD_MAX72XX _mx;
 };
 
+class GCube
+{
+public:
+    // Bluetooth tx rx 설정하는 함수와 같이 프로그램의 맨 처음 루프 밖에서 호출 되어야 하는 함수. 
+    GCube(int rx, int tx, byte CubeNum);
+    // setup 루프 에서 호출 되어야 하는 함수
+    void begin();
+
+    //sensors
+        //0번 큐브가 아닌 1번 큐브 이상부터 요청 할 수 있는 함수들
+        // echo 값을 읽는 함수. 구현은 했지만 말 그대로 0값 echo 하는 기능 인 것 같습니다.
+    void get_cube_echo_value(byte mdata[]);
+    // 해당 큐브의 가속도 x값을 1바이트로 반환하는 함수
+    int8_t get_cube_accX_value(byte c_number);
+    // 해당 큐브의 가속도 y값을 1바이트로 반환하는 함수
+    int8_t get_cube_accY_value(byte c_number);
+    // 해당 큐브의 근접 센서 값을 1 바이트로 반환하는 함수
+    byte get_cube_proxi_value(byte c_number);
+    // 해당 큐브의 버튼 값을 1 바이트로 반환하는 함수
+    byte get_cube_button_value(byte c_number);
+
+    //DotMatrix
+    //!0번 큐브에는 메트릭스를 사용할 수 없습니다.
+    //Still image 전송하는 함수
+    void send_matrix_still_image(byte cube_index, byte m[]);
+    //설정한 Blink rate 에 맞게 Image 깜빡이는 효과 함수
+    //!추후 기능 업데이트 될 것 같습니다. 현재 구현되어 있지 않음.
+    void set_matrix_blink_rate(byte cube_index, byte blinkrate);
+    //전광판과 같이 옆 ID의 도트매트릭스에 이미지를 연결시켜 이동하는 함수
+    void start_matrix_roll_image(byte GCUBE_TOTAL, byte m[], int duration);
+    //한개의 도트 매트릭스 내에서 이미지를 xp, yp 만큼 이동시키는 함수
+    void start_matrix_shift_image(byte cubeIndex, byte GCUBE_TOTAL, byte rollImage[], int8_t xp, int8_t yp);
+    //도트매트릭스 중 x, y 에 해당하는 pixel 값을 설정하는 함수 - 사용 빈도 하 예상 (Byte array 사용)
+    void set_matrix_pixel_data(byte cube_index, byte x, byte y, byte onoff);
+    //도트매트릭스의 값을 byte string 으로 설정하는 함수 - 사용 빈도 하 예상 (Byte array 사용)
+    void set_matrix_string_data(byte cube_index, byte s0, byte s1, byte s2, byte s3, byte s4, byte s5, byte s6, byte s7);
+
+    //actuators
+        //2개 이상의 큐브가 있어야 작동하는 함수들
+        // 해당 큐브의 모터 값을 설정하는 함수
+    void send_a_cube_speed(byte cube_number, char cube_speed);
+    // 모든 큐브의 모터 값을 설정하는 함수
+    void send_multi_cube_speed(byte GCUBE_TOTAL, char s0, char s1, char s2, char s3, char s4, char s5, char s6, char s7);
+    // 모든 큐브의 모터 값을 0으로 설정하는 함수
+    void stop_all_cube_motor(byte GCUBE_TOTAL);
+    //  해당 큐브의 각도를 설정하는 함수
+    void send_a_cube_angle(byte cube_number, int cube_angle);
+    //  모든 큐브의 각도를 설정하는 함수
+    void send_multi_cube_angle(byte cube_range, int s0, int s1, int s2, int s3);
+    
+    
+    //pingpong robots
+    //핑퐁교과와 연관 있는 함수들
+        // 로봇의 종류에 따라 (기어 유무) 거리를 움직이는 함수
+    void move_pingpong_robot(byte gear_flag, int distance);
+    // 로봇의 종류에 따라 (기어 유무) 각도를 움직이는 함수
+    void rotate_pingpong_robot(byte gear_flag, int angle);
+    // 로봇 팔 관련 함수들
+    void pen_up();
+    void pen_down();
+    void lever_up();
+    void lever_down();
+    void gripper_open();
+    void gripper_close();
+
+private:
+    void send_gcube(byte x0, byte x1, byte x2, byte x3, byte x4, byte x5, byte x6, byte x7, byte x8, byte x9, SoftwareSerial& cubeSerial);
+    void wait_for_first_cube_connected(SoftwareSerial& cubeSerial);
+    void wait_for_all_cube_connected(byte GCUBE_TOTAL, SoftwareSerial& cubeSerial);
+    byte get_iv(byte a);
+    void get_cube_echo_value(uint8_t mdata[], SoftwareSerial& cubeSerial);
+    void get_cube_acc_value(int8_t mdata[], byte c_number, SoftwareSerial& cubeSerial);
+    void get_cube_proxi_value(uint8_t mdata[], byte c_number, SoftwareSerial& cubeSerial);
+    void get_cube_button_value(uint8_t mdata[], byte c_number, SoftwareSerial& cubeSerial);
+    int _rx;
+    int _tx;
+    SoftwareSerial* _serial;
+    byte _CubeNum;
+
+};
+
 #endif
