@@ -22,6 +22,10 @@
 #define DEFAULT_KEYPAD_COL_SIZE 4
 #define DEFAULT_KEYPAD_ROW_SIZE 4
 
+// envs for LCD
+#define LCD_COLS 16
+#define LCD_ROWS 2
+
 /* LED */
 class Led
 {
@@ -493,7 +497,7 @@ public:
 
     inline void clear() { _mx.clear(); }
     void print(char val);
-    void printScroll(const char* pText, textEffect dir = right);
+    void printScroll(const char* pText, textEffect dir = left);
     void print(const char* pText);
     inline void print(int val) { print((char)(val + 48)); }
     void printImage(const byte images[8]);
