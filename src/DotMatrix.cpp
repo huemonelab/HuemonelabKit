@@ -584,12 +584,7 @@ void DotMatrix::print(char val) {
     _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
 }
 
-void DotMatrix::print(uint8_t val) {
-    char text_val = (char)(val + 48);
-    print(text_val);
-}
-
-void DotMatrix::printScroll(const char* pText, textEffect dir = right) {
+void DotMatrix::printScroll(const char* pText, textEffect dir = left) {
     uint8_t buf[MAX_BUF] = { 0, };
     char* textptr = pText;
     uint8_t buf_cur = 1;
@@ -604,7 +599,7 @@ void DotMatrix::printScroll(const char* pText, textEffect dir = right) {
         if (millis() - prevTimeAnim > 75) {
             _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::OFF);
             for (uint8_t i = 0; i < 8; i++) _mx.setColumn(i, 0);
-            if ((int)dir) for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - i, buf[i + frame]);
+            if (dir) for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - i, buf[i + frame]);
             else for (uint8_t i = 0; i < 8; i++) _mx.setColumn(7 - i, buf[buf_cur - frame + i - 1]);
             _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
             frame++;
@@ -623,12 +618,6 @@ void DotMatrix::printImage(const byte images[8]) {
     for (uint8_t i = 0; i < 8; i++) _mx.setColumn(i, 0);
     for (uint8_t i = 0; i < 8; i++) _mx.setRow(7 - i, images[7 - i]);
     _mx.control(MD_MAX72XX::UPDATE, MD_MAX72XX::ON);
-}
-
-
-void DotMatrix::printEmoji(int num) {
-    if (num > EMOJI_COUNT || num <= 0)  return;
-    printImage(IMAGES[num - 1]);
 }
 
 
